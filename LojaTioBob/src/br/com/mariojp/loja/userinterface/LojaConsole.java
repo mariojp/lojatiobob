@@ -5,17 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.mariojp.loja.Util.ConsoleUtil;
 import br.com.mariojp.loja.negocio.Cliente;
 import br.com.mariojp.loja.negocio.Item;
 import br.com.mariojp.loja.negocio.Loja;
 import br.com.mariojp.loja.negocio.Produto;
 import br.com.mariojp.loja.negocio.Venda;
+import br.com.mariojp.loja.util.ConsoleUtil;
 
 public class LojaConsole {
 
 	Scanner scanner = new Scanner(System.in);
 
+	
+	Menu principal;
+	Menu produtos;
+	
 	private Loja loja;
 
 	public LojaConsole(Loja loja) {
@@ -23,19 +27,27 @@ public class LojaConsole {
 	}
 
 	public void iniciar() {
+		principal = new Menu("Menu Principal");
+		principal.addItem(new ItemMenu("3", "Vendas"));
+		principal.addItem(new ItemMenu("1", "Produto"));
+		principal.addItem(new ItemMenu("2", "Clientes"));
+		principal.addItem(new ItemMenu("S", "Sair"));
+		
+		produtos = new Menu("Menu Produtos");
+		produtos.addItem(new ItemMenu("4", "Listar"));
+		produtos.addItem(new ItemMenu("1", "Inserir"));
+		produtos.addItem(new ItemMenu("2", "Alterar"));
+		produtos.addItem(new ItemMenu("3", "Excluir"));
+		produtos.addItem(new ItemMenu("V", "Voltar"));
+
+		
 		this.menu();
 	}
 
 	public void menu() {
 		String op = "";
 		while (!op.equalsIgnoreCase("s")) {
-			System.out.println("MENU PRINCIPAL");
-			System.out.println("1 - Produtos");
-			System.out.println("2 - Clientes");
-			System.out.println("3 - Vendas");
-			System.out.println("S - Sair");
-			System.out.print("Digite a Opção desejada: ");
-			op = scanner.nextLine();
+			op = principal.obterOpcao();
 			System.out.println("");
 			switch (op) {
 			case "1":
@@ -63,14 +75,7 @@ public class LojaConsole {
 	public void produtos() {
 		String op = "";
 		while (!op.equalsIgnoreCase("v")) {
-			System.out.println("MENU PRODUTOS");
-			System.out.println("1 - Inserir");
-			System.out.println("2 - Alterar");
-			System.out.println("3 - Excluir");
-			System.out.println("4 - Listar");
-			System.out.println("V - Voltar");
-			System.out.print("Digite a Opção desejada: ");
-			op = scanner.nextLine();
+			op = produtos.obterOpcao();
 			System.out.println("");
 			switch (op) {
 			case "1":
@@ -99,7 +104,6 @@ public class LojaConsole {
 			System.out.println(object);
 		}
 		scanner.nextLine();
-
 	}
 
 	private void excluirProduto() {

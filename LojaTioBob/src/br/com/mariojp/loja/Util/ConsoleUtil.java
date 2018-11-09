@@ -1,4 +1,4 @@
-package br.com.mariojp.loja.Util;
+package br.com.mariojp.loja.util;
 
 public class ConsoleUtil {
 
