@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.tools.ForwardingJavaFileManager;
+
+import br.com.mariojp.loja.negocio.Cartao;
 import br.com.mariojp.loja.negocio.Cliente;
+import br.com.mariojp.loja.negocio.Dinheiro;
+import br.com.mariojp.loja.negocio.FormaDePagamento;
 import br.com.mariojp.loja.negocio.Item;
 import br.com.mariojp.loja.negocio.Loja;
 import br.com.mariojp.loja.negocio.Produto;
@@ -426,6 +431,32 @@ public class LojaConsole {
 				excluirItem(venda);
 				break;
 			case "3":
+				//Escolher a forma de pagamento
+				System.out.println("1 - Cartão");
+				System.out.println("2 - Dinheiro");
+				BigDecimal total = BigDecimal.ZERO;
+				for ( Item item : venda.getItens()) {
+					total = total.add(item.getValor());
+				}
+				System.out.println("VALOR TOTAL "+total);
+				String f = scanner.nextLine();
+				
+				FormaDePagamento formaDePagamento = null;
+				BigDecimal valor = BigDecimal.ZERO;
+				
+				if(f.equals("1")) {
+					System.out.println("Numero do Cartão");
+					formaDePagamento = new Cartao();
+				}
+				if(f.equals("2")) {
+					formaDePagamento = new Dinheiro();
+					String valorString = scanner.nextLine();
+					valor = new BigDecimal(valorString);
+				}
+				
+				formaDePagamento.pagamento(valor, venda);
+				venda.setFormaDePagamento(formaDePagamento);
+				
 				break;
 			default:
 				System.out.println("Opção invalida");

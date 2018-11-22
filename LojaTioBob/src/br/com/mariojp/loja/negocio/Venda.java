@@ -16,6 +16,8 @@ public class Venda {
 	
 	private BigDecimal valor;
 	
+	private FormaDePagamento formaDePagamento;
+	
 	private List<Item> itens = new ArrayList<>();
 
 	public Venda(Cliente cliente) {
@@ -206,6 +208,18 @@ public class Venda {
 			return null;
 		}
 		
+	}
+
+
+
+	public FormaDePagamento getFormaDePagamento() {
+		return formaDePagamento;
+	}
+
+
+
+	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
+		this.formaDePagamento = formaDePagamento;
 	}
 	
 	
